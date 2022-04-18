@@ -1,6 +1,6 @@
 <?php
 
-namespace Sds\Infrastructure\Auth;
+namespace Sds\Infrastructure\Account\UserLogin\Authenticator;
 
 class UserRepository
 {

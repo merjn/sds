@@ -5,7 +5,8 @@ namespace App\Providers;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
-use Illuminate\Support\Facades\Event;
+use Sds\Application\Interfaces\EventDispatcherInterface;
+use Sds\Infrastructure\Event\LaravelEventDispatcher;
 
 class EventServiceProvider extends ServiceProvider
 {
@@ -19,6 +20,13 @@ class EventServiceProvider extends ServiceProvider
             SendEmailVerificationNotification::class,
         ],
     ];
+
+    public function register()
+    {
+        parent::register();
+
+        $this->app->bind(EventDispatcherInterface::class, LaravelEventDispatcher::class);
+    }
 
     /**
      * Register any events for your application.

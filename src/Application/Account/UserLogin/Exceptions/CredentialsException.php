@@ -3,7 +3,6 @@
 namespace Sds\Application\Account\UserLogin\Exceptions;
 
 use Exception;
-use JetBrains\PhpStorm\Internal\LanguageLevelTypeAware;
 
 final class CredentialsException extends Exception
 {

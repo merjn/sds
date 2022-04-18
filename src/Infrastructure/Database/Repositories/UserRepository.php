@@ -2,7 +2,6 @@
 
 namespace Sds\Infrastructure\Database\Repositories;
 
-use Doctrine\ORM\EntityRepository;
 use Doctrine\Persistence\ObjectRepository;
 use Sds\Application\Repositories\UserRepositoryInterface;
 use Sds\Domain\Models\User;

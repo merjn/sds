@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace Sds\Infrastructure\Auth;
+namespace Sds\Infrastructure\Account\UserLogin\Authenticator;
 
 use Sds\Application\Account\UserLogin\Authenticator\AuthenticatorDto;
 use Sds\Application\Account\UserLogin\Authenticator\AuthenticatorInterface;

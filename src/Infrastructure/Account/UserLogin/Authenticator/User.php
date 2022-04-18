@@ -1,6 +1,6 @@
 <?php
 
-namespace Sds\Infrastructure\Auth;
+namespace Sds\Infrastructure\Account\UserLogin\Authenticator;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
