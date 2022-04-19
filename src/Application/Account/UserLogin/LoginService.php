@@ -4,6 +4,7 @@ namespace Sds\Application\Account\UserLogin;
 
 use Sds\Application\Account\Hashing\Interfaces\HashServiceInterface;
 use Sds\Application\Account\UserLogin\Authenticator\AuthenticatorInterface;
+use Sds\Application\Account\UserLogin\Events\LoginFailed;
 use Sds\Application\Account\UserLogin\Events\UserAuthenticated;
 use Sds\Application\Account\UserLogin\Exceptions\AuthenticationException;
 use Sds\Application\Account\UserLogin\Exceptions\CredentialsException;
@@ -19,7 +20,7 @@ final class LoginService implements LoginServiceInterface
         private readonly HashServiceInterface $hashService
     ) { }
 
-    public function login(LoginDto $loginDto): LoginViewModel
+    public function login(LoginDto $loginDto): LoginResponseDto
     {
         if (strlen($loginDto->username) < 0 || strlen($loginDto->password) < 0) {
             throw new AuthenticationException("Username or password is empty");
@@ -27,14 +28,22 @@ final class LoginService implements LoginServiceInterface
 
         if (!is_null($user = $this->userRepository->findByUsername($loginDto->username))) {
             if (!$this->hashService->verifyPassword($user, $loginDto->password)) {
+                $this->eventDispatcher->dispatch(new LoginFailed(
+                    username: $loginDto->username,
+                    ipAddress: $loginDto->ipAddress
+                ));
+
                 throw new CredentialsException;
             }
 
             $authenticatorDto = $this->authenticator->authenticate($user->getId());
 
-            $this->eventDispatcher->dispatch(new UserAuthenticated($loginDto->username));
+            $this->eventDispatcher->dispatch(new UserAuthenticated(
+                username: $loginDto->username,
+                ipAddress: $loginDto->ipAddress
+            ));
 
-            return new LoginViewModel(
+            return new LoginResponseDto(
                 token: $authenticatorDto->token
             );
         }

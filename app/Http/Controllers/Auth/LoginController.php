@@ -15,13 +15,14 @@ final class LoginController
 
     public function __invoke(Request $request): JsonResource
     {
-        $loginViewModel = $this->loginService->login(new LoginDto(
+        $loginResponseDto = $this->loginService->login(new LoginDto(
             username: $request->get('username', ''),
-            password: $request->get('password', '')
+            password: $request->get('password', ''),
+            ipAddress: $request->ip()
         ));
 
         return new JsonResource([
-            'token' => $loginViewModel->token
+            'token' => $loginResponseDto->token
         ]);
     }
 }

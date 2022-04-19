@@ -2,7 +2,7 @@
 
 namespace Sds\Application\Account\UserLogin;
 
-class LoginViewModel
+class LoginResponseDto
 {
     public function __construct(
         public readonly string $token

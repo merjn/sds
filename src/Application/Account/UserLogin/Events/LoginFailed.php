@@ -1,12 +1,11 @@
 <?php
 
-namespace Sds\Application\Account\UserLogin;
+namespace Sds\Application\Account\UserLogin\Events;
 
-final class LoginDto
+class LoginFailed
 {
     public function __construct(
         public readonly string $username,
-        public readonly string $password,
         public readonly string $ipAddress
     ) { }
 }
