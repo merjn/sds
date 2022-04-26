@@ -2,12 +2,18 @@
 
 namespace Sds\Domain\Models;
 
+use Sds\Domain\Exceptions\GenderException;
+use Sds\Domain\ValueObjects\Gender;
+use Sds\Domain\ValueObjects\PlayerName;
+
 final class User
 {
+    private int $id;
+
     public function __construct(
-        protected readonly int $id,
-        protected string $username,
-        protected string $password
+        private readonly PlayerName $user,
+        private readonly string $password,
+        private readonly string $gender
     ) { }
 
     public function getId(): int
@@ -15,13 +21,18 @@ final class User
         return $this->id;
     }
 
-    public function getUsername(): string
+    public function getUser(): string
     {
-        return $this->username;
+        return $this->user;
     }
 
     public function getPassword(): string
     {
         return $this->password;
+    }
+
+    public function getGender(): string
+    {
+        return $this->gender;
     }
 }

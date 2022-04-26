@@ -3,22 +3,19 @@
 namespace Sds\Infrastructure\Database\Repositories;
 
 use Doctrine\Persistence\ObjectRepository;
+use Happyr\DoctrineSpecification\Repository\EntitySpecificationRepositoryInterface;
+use Happyr\DoctrineSpecification\Specification\BaseSpecification;
 use Sds\Application\Repositories\UserRepositoryInterface;
 use Sds\Domain\Models\User;
 
 class UserRepository implements UserRepositoryInterface
 {
     public function __construct(
-        private readonly ObjectRepository $objectRepository
+        private readonly EntitySpecificationRepositoryInterface $objectRepository
     ) { }
 
-    public function find($id)
+    public function find(BaseSpecification $baseSpecification): ?User
     {
-        return $this->objectRepository->find($id);
-    }
-
-    public function findByUsername(string $username): ?User
-    {
-        return $this->objectRepository->findOneBy(['username' => $username]);
+        return $this->objectRepository->matchOneOrNullResult($baseSpecification);
     }
 }

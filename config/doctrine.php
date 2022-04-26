@@ -32,9 +32,10 @@ return [
             'connection'    => env('DB_CONNECTION', 'mysql'),
             'namespaces'    => [],
             'paths'         => [
-                base_path('src/Domain/Models')
+                base_path('src/Domain/Models'),
+                base_path('src/Domain/ValueObjects')
             ],
-            'repository'    => Doctrine\ORM\EntityRepository::class,
+            'repository'    => \Happyr\DoctrineSpecification\Repository\EntitySpecificationRepository::class,
             'proxies'       => [
                 'namespace'     => false,
                 'path'          => storage_path('proxies'),

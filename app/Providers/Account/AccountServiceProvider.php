@@ -4,6 +4,8 @@ namespace App\Providers\Account;
 
 use Illuminate\Support\ServiceProvider;
 use LaravelDoctrine\ORM\Facades\EntityManager;
+use Sds\Application\Account\CreateUser\CreateUserService;
+use Sds\Application\Account\CreateUser\CreateUserServiceInterface;
 use Sds\Application\Account\Hashing\HashService;
 use Sds\Application\Account\Hashing\Interfaces\HasherInterface;
 use Sds\Application\Account\Hashing\Interfaces\HashServiceInterface;
@@ -24,6 +26,7 @@ class AccountServiceProvider extends ServiceProvider
         $this->registerAuthComponent();
         $this->registerHashingComponent();
         $this->registerLoginService();
+        $this->registerCreateUserComponent();
     }
 
     private function registerAuthComponent(): void
@@ -42,5 +45,10 @@ class AccountServiceProvider extends ServiceProvider
     {
         $this->app->bind(LoginServiceInterface::class, LoginService::class);
         $this->app->bind(UserRepositoryInterface::class, fn () => new UserRepository(EntityManager::getRepository(User::class)));
+    }
+
+    private function registerCreateUserComponent()
+    {
+        $this->app->bind(CreateUserServiceInterface::class, CreateUserService::class);
     }
 }

@@ -13,12 +13,29 @@ return [
             ]
         ],
 
+        'embedded' => [
+            'user' => [
+                'class' => 'Sds\Domain\ValueObjects\PlayerName',
+                'columnPrefix' => false,
+            ]
+        ],
+
         'fields' => [
-            'username' => [
-                'type' => 'string'
-            ],
             'password' => [
                 'type' => 'string'
+            ],
+
+            'gender' => [
+                'type' => 'string',
+            ]
+        ]
+    ],
+
+    'Sds\Domain\ValueObjects\PlayerName' => [
+        'type' => 'embeddable',
+        'fields' => [
+            'username' => [
+                'type' => 'string',
             ]
         ]
     ]

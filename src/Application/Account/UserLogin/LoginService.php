@@ -10,6 +10,7 @@ use Sds\Application\Account\UserLogin\Exceptions\AuthenticationException;
 use Sds\Application\Account\UserLogin\Exceptions\CredentialsException;
 use Sds\Application\Interfaces\EventDispatcherInterface;
 use Sds\Application\Repositories\UserRepositoryInterface;
+use Sds\Application\Specifications\GetUserByUsernameSpecification;
 
 final class LoginService implements LoginServiceInterface
 {
@@ -26,7 +27,9 @@ final class LoginService implements LoginServiceInterface
             throw new AuthenticationException("Username or password is empty");
         }
 
-        if (!is_null($user = $this->userRepository->findByUsername($loginDto->username))) {
+        $userExistsSpecification = new GetUserByUsernameSpecification($loginDto->username);
+
+        if (!is_null($user = $this->userRepository->find($userExistsSpecification))) {
             if (!$this->hashService->verifyPassword($user, $loginDto->password)) {
                 $this->eventDispatcher->dispatch(new LoginFailed(
                     username: $loginDto->username,
