@@ -11,7 +11,7 @@ use Sds\Application\Account\Hashing\Interfaces\HasherInterface;
 use Sds\Application\Account\Hashing\Interfaces\HashServiceInterface;
 use Sds\Application\Account\Hashing\PasswordOptions;
 use Sds\Application\Account\UserLogin\Authenticator\AuthenticatorInterface;
-use Sds\Application\Account\UserLogin\LoginService;
+use Sds\Application\Account\UserLogin\AuthenticatePlayerHandler;
 use Sds\Application\Account\UserLogin\LoginServiceInterface;
 use Sds\Application\Repositories\UserRepositoryInterface;
 use Sds\Domain\Models\User;
@@ -43,7 +43,7 @@ class AccountServiceProvider extends ServiceProvider
 
     private function registerLoginService()
     {
-        $this->app->bind(LoginServiceInterface::class, LoginService::class);
+        $this->app->bind(LoginServiceInterface::class, AuthenticatePlayerHandler::class);
         $this->app->bind(UserRepositoryInterface::class, fn () => new UserRepository(EntityManager::getRepository(User::class)));
     }
 

@@ -2,7 +2,7 @@
 
 namespace Sds\Application\Account\UserLogin;
 
-class LoginResponseDto
+class AuthenticatePlayerResponse
 {
     public function __construct(
         public readonly string $token

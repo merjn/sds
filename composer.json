@@ -15,6 +15,7 @@
         "laravel/passport": "^10.4",
         "laravel/sanctum": "^2.14.1",
         "laravel/tinker": "^2.7",
+        "league/tactician": "^1.1",
         "paragonie/sodium_compat": "^1.17",
         "symfony/cache": "^5.4",
         "symfony/yaml": "^5.4"

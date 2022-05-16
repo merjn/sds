@@ -4,5 +4,5 @@ namespace Sds\Application\Account\UserLogin;
 
 interface LoginServiceInterface
 {
-    public function login(LoginDto $loginDto): LoginResponseDto;
+    public function login(AuthenticatePlayer $loginDto): AuthenticatePlayerResponse;
 }

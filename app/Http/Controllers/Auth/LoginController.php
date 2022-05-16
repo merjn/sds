@@ -1,23 +1,25 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers\Auth;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
-use Sds\Application\Account\UserLogin\LoginDto;
-use Sds\Application\Account\UserLogin\LoginServiceInterface;
+use League\Tactician\CommandBus;
+use Sds\Application\Account\UserLogin\AuthenticatePlayer;
 
 final class LoginController
 {
     public function __construct(
-        private readonly LoginServiceInterface $loginService
+        private readonly CommandBus $commandBus
     ) { }
 
     public function __invoke(Request $request): JsonResource
     {
-        $loginResponseDto = $this->loginService->login(new LoginDto(
-            username: $request->get('username', ''),
-            password: $request->get('password', ''),
+        $loginResponseDto = $this->commandBus->handle(new AuthenticatePlayer(
+            username: $request->input('username', ''),
+            password: $request->input('password', ''),
             ipAddress: $request->ip()
         ));
 

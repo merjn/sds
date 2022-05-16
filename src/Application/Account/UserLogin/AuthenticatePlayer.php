@@ -2,7 +2,7 @@
 
 namespace Sds\Application\Account\UserLogin;
 
-final class LoginDto
+final class AuthenticatePlayer
 {
     public function __construct(
         public readonly string $username,
